@@ -177,9 +177,16 @@ public class LinkedList {
 	 * @return the index of the block, or -1 if the block is not in this list
 	 */
 	public int indexOf(MemoryBlock block) {
-		//// Replace the following statement with your code
-		return -1;
+		Node current = this.first; 
+		for (int index = 0; index < size; index++) { 
+			if (current.block.equals(block)) { 
+				return index; 
+			}
+			current = current.next; 
+		}
+		return -1; 
 	}
+	
 
 	/**
 	 * Removes the given node from this list.	
