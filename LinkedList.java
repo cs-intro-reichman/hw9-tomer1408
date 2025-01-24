@@ -154,7 +154,7 @@ public class LinkedList {
 	 *         if index is negative or greater than or equal to size
 	 */
 	public MemoryBlock getBlock(int index) {
-		if (index < 0 || index > size) {
+		if (index < 0 || index > size || size==0) {
 			throw new IllegalArgumentException(
 					"index must be between 0 and size");
 		}
@@ -195,9 +195,42 @@ public class LinkedList {
 	 *        the node that will be removed from this list
 	 */
 	public void remove(Node node) {
-		//// Write your code here
-	}
+		if(node==null){
+			throw new NullPointerException("Node cannot be null!");
+		}
+		if (this.first == null) { 
+			return; 
+		}
 
+		if (this.first == node) {
+			this.first = this.first.next; 
+			if (this.first == null) { 
+				this.last = null; 
+			}
+			this.size--; 
+			return;
+		}
+	
+		Node current = this.first;
+		Node prev = null;
+	
+		while (current != null && current != node) {
+			prev = current;
+			current = current.next; 
+		}
+	
+		if (current == null) { 
+			return; 
+		}
+			prev.next = current.next;
+	
+		if (current == this.last) {
+			this.last = prev;
+		}
+	
+		this.size--; 
+	}
+	
 	/**
 	 * Removes from this list the node which is located at the given index.
 	 * 
@@ -246,7 +279,38 @@ public class LinkedList {
 	 *         if the given memory block is not in this list
 	 */
 	public void remove(MemoryBlock block) {
-		//// Write your code here
+		if(block==null){
+			throw new IllegalArgumentException("index must be between 0 and size");
+		}
+		if (this.first == null) { 
+			return; 
+		}
+		Node current = this.first; 
+		if (current.block.equals(block)) {
+			this.first = this.first.next; 
+			if (this.first == null) { 
+				this.last = null; 
+			}
+			this.size--; 
+			return;
+		}
+
+		Node prev = null;
+	
+		while (current != null && !current.block.equals(block)) {
+			prev = current;
+			current = current.next; 
+		}
+		if (current == null) { 
+			return; 
+		}
+			prev.next = current.next;
+	
+		if (current == this.last) {
+			this.last = prev;
+		}
+	
+		this.size--;
 	}	
 
 	/**
