@@ -321,7 +321,13 @@ public class LinkedList {
 	 * A textual representation of this list, for debugging.
 	 */
 	public String toString() {
-		//// Replace the following statement with your code
-		return "";
+		String str = "";
+		Node current = this.first;
+		while (current != null){
+			str = str + current.block.toString() + " ";
+			current = current.next;
+		}
+		return str;
 	}
+
 }
