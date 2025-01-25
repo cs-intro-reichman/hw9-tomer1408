@@ -64,30 +64,30 @@ public class MemorySpace {
 
     while (iterator.hasNext()) {
         MemoryBlock blockIterator = iterator.current.block;
-        if (blockIterator.length >= length) { // If block is large enough
-            //MemoryBlock freeBlock = new MemoryBlock(blockIterator.baseAddress, length);
+        if (blockIterator.length >= length) { 
+            
             int Address = blockIterator.baseAddress;
             MemoryBlock allocatedBlock = new MemoryBlock(Address, length);
             
-            // Add the allocated block to the allocatedList
+            
             allocatedList.addLast(allocatedBlock);
-            // If the free block exactly matches the length, remove it
+          
             if (blockIterator.length == length) {
                 freeList.remove(blockIterator);
             } else {
-                // Otherwise, split the free block
+                
                 blockIterator.baseAddress += length;
                 blockIterator.length -=length;
             }
-            //System.out.println(length);
-            //System.out.println(toString());
-            return Address; // Return the base address of the allocated block
+          
+          
+            return Address; 
         }
         
         iterator.next();
     }
     
-    return -1; // Return -1 if no suitable block was found
+    return -1; 
 }
 
     /**
@@ -106,8 +106,9 @@ public class MemorySpace {
         }
         
         Node current = allocatedList.getFirst();
+		
         while (current != null) {
-			
+
             MemoryBlock allocatedBlock = current.block;
             if (allocatedBlock.baseAddress == address) {
                 
@@ -128,6 +129,7 @@ public class MemorySpace {
      */
         @Override
     public String toString() {
+
         return freeList.toString() + "\n" + allocatedList.toString();  
      
     }
@@ -145,25 +147,26 @@ public class MemorySpace {
     
         while (iteratorNum1.hasNext()) {
 
-            MemoryBlock block1 = iteratorNum1.current.block;
+            MemoryBlock blockNum1 = iteratorNum1.current.block;
     
             ListIterator iteratorNum2 = new ListIterator(freeList.getFirst());
     
             while (iteratorNum2.hasNext()) {
 
-                MemoryBlock block2 = iteratorNum2.current.block;
+                MemoryBlock blockNum2 = iteratorNum2.current.block;
     
-                if (block1 != block2) { 
+                if (blockNum1 != blockNum2) { 
                   
-                    if (block1.baseAddress + block1.length == block2.baseAddress) {
-                        block1.length += block2.length; 
+                    if (blockNum1.baseAddress + blockNum1.length == blockNum2.baseAddress) {
+                        blockNum1.length += blockNum2.length; 
                         freeList.remove(iteratorNum2.current); 
                         iteratorNum2 = new ListIterator(freeList.getFirst()); 
                     }
-                    else if (block2.baseAddress + block2.length == block1.baseAddress) {
-                        block2.length += block1.length; 
+                    else if (blockNum2.baseAddress + blockNum2.length == blockNum1.baseAddress) {
+                        blockNum2.length += blockNum1.length; 
                         freeList.remove(iteratorNum1.current); 
                         iteratorNum1 = new ListIterator(freeList.getFirst()); 
+
                         break; 
                     }
                 }
@@ -174,7 +177,7 @@ public class MemorySpace {
             iteratorNum1.next(); 
         }
     
-        //System.out.println(toString());
+      
     }
     
 }
